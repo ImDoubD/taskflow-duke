@@ -3,7 +3,7 @@ package database
 import (
 	"fmt"
 
-	_ "github.com/jackc/pgx/v5/stdlib" // registers the "pgx" driver with database/sql
+	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/jmoiron/sqlx"
 
 	"github.com/dukedhal/taskflow/internal/config"
