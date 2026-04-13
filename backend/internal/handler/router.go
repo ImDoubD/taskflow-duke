@@ -6,7 +6,6 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"github.com/dukedhal/taskflow/internal/middleware"
-	"github.com/dukedhal/taskflow/internal/repository"
 	"github.com/dukedhal/taskflow/internal/service"
 )
 
@@ -15,7 +14,6 @@ func NewRouter(
 	authSvc *service.AuthService,
 	projectSvc *service.ProjectService,
 	taskSvc *service.TaskService,
-	userRepo *repository.UserRepository,
 ) http.Handler {
 	r := chi.NewRouter()
 
@@ -25,7 +23,6 @@ func NewRouter(
 	authH    := NewAuthHandler(authSvc)
 	projectH := NewProjectHandler(projectSvc, taskSvc)
 	taskH    := NewTaskHandler(taskSvc)
-	userH    := NewUserHandler(userRepo)
 
 	// Public — no auth required
 	r.Post("/auth/register", authH.Register)
@@ -34,9 +31,6 @@ func NewRouter(
 	// Protected — JWT required
 	r.Group(func(r chi.Router) {
 		r.Use(middleware.Authenticate(authSvc))
-
-		// Users — for assignee picker
-		r.Get("/users", userH.List)
 
 		// Projects
 		r.Get("/projects", projectH.List)

@@ -56,16 +56,3 @@ func (r *UserRepository) FindByID(ctx context.Context, id string) (*model.User, 
 	return &u, nil
 }
 
-// ListAll returns all users ordered by name. Password is excluded at the model
-// level via json:"-" so it is never serialized in responses.
-func (r *UserRepository) ListAll(ctx context.Context) ([]model.User, error) {
-	var users []model.User
-	err := r.db.SelectContext(ctx, &users, `SELECT * FROM users ORDER BY name ASC`)
-	if err != nil {
-		return nil, fmt.Errorf("list users: %w", err)
-	}
-	if users == nil {
-		users = []model.User{}
-	}
-	return users, nil
-}

@@ -74,7 +74,7 @@ func main() {
 	projectSvc := service.NewProjectService(projectRepo)
 	taskSvc := service.NewTaskService(taskRepo, projectRepo)
 
-	router := handler.NewRouter(authSvc, projectSvc, taskSvc, userRepo)
+	router := handler.NewRouter(authSvc, projectSvc, taskSvc)
 
 	srv := &http.Server{
 		Addr:         ":" + cfg.Server.Port,

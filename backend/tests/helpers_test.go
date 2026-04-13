@@ -96,7 +96,7 @@ func newTestServer(t *testing.T) *testServer {
 	projectSvc := service.NewProjectService(projectRepo)
 	taskSvc    := service.NewTaskService(taskRepo, projectRepo)
 
-	router := handler.NewRouter(authSvc, projectSvc, taskSvc, userRepo)
+	router := handler.NewRouter(authSvc, projectSvc, taskSvc)
 	srv := httptest.NewServer(router)
 	t.Cleanup(srv.Close)
 
