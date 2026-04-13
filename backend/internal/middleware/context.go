@@ -20,7 +20,6 @@ func UserIDFromContext(ctx context.Context) string {
 }
 
 // writeJSONError writes a {"error": msg} JSON response.
-// Kept internal to the middleware package to avoid an import cycle with handler.
 func writeJSONError(w http.ResponseWriter, status int, msg string) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)

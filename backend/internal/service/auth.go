@@ -83,8 +83,7 @@ func (s *AuthService) Register(ctx context.Context, in RegisterInput) (*AuthResp
 }
 
 // Login verifies credentials and returns a JWT.
-// Returns ErrUnauthorized for both "not found" and "wrong password" — never
-// distinguish them to the caller (prevents user enumeration).
+// Returns ErrUnauthorized for both "not found" and "wrong password"
 func (s *AuthService) Login(ctx context.Context, in LoginInput) (*AuthResponse, error) {
 	email := strings.ToLower(strings.TrimSpace(in.Email))
 

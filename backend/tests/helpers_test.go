@@ -31,8 +31,7 @@ type testServer struct {
 }
 
 // newTestServer spins up a Postgres container, runs migrations, and builds the
-// full handler stack backed by a real database. The container is cleaned up
-// when the test ends.
+// full handler stack backed by a real database.
 func newTestServer(t *testing.T) *testServer {
 	t.Helper()
 	ctx := context.Background()
@@ -88,13 +87,13 @@ func newTestServer(t *testing.T) *testServer {
 		t.Fatalf("run migrations: %v", err)
 	}
 
-	userRepo    := repository.NewUserRepository(db)
+	userRepo := repository.NewUserRepository(db)
 	projectRepo := repository.NewProjectRepository(db)
-	taskRepo    := repository.NewTaskRepository(db)
+	taskRepo := repository.NewTaskRepository(db)
 
-	authSvc    := service.NewAuthService(userRepo, testJWTSecret)
+	authSvc := service.NewAuthService(userRepo, testJWTSecret)
 	projectSvc := service.NewProjectService(projectRepo)
-	taskSvc    := service.NewTaskService(taskRepo, projectRepo)
+	taskSvc := service.NewTaskService(taskRepo, projectRepo)
 
 	router := handler.NewRouter(authSvc, projectSvc, taskSvc)
 	srv := httptest.NewServer(router)

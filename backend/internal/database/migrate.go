@@ -11,7 +11,6 @@ import (
 )
 
 // RunMigrations applies all pending up-migrations from the embedded FS.
-// It is safe to call on every startup — ErrNoChange is silently ignored.
 func RunMigrations(dbURL string, migrationsFS fs.FS) error {
 	src, err := iofs.New(migrationsFS, ".")
 	if err != nil {
